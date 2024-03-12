@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antui Dialog</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+        .container {
+            padding: 30px;
+            width: 80%;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        .antui-progress,
+        .button .antui-btn,
+        .form .antui-form,
+        .page .demo-item {
+            margin-bottom: 6px;
+        }
+        .interduce {
+            background-color: #f5f5f5;
+            padding: 15px;
+            font-size: 15px;
+            border-radius: 4px;
+        }
+        .info-line{
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            color: #333333;
+            /* justify-content: ; */
+        }
+        a{
+            color: #3b97b2;
+            text-decoration: none;
+        }
+        .title{
+            width: 58px;
+        }
+        /* .content{
+            display: inline-block;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Antui Dialog</h1>
+        <div class="interduce">
+            <div class="info-line">
+                <b>antui-dialog.js </b> 是一个轻量极简的js弹窗插件，不依赖其他第三方js库
+            </div>
+            <div class="info-line">
+               <div class="title">体积：</div>
+               <div class="content">目前大小为15k，还能继续简化，但是作者很懒，就先这么着吧</div>
+            </div>
+            <div class="info-line">
+                <div class="title">作者：</div> <div class="content">Cason Tan ，江湖人称 “山顶洞人”</div>
+            </div>
+            <div class="info-line">
+                <div class="title">文档：</div><div class="content">没有。。这么简单的玩意看什么文档，看demo去</div>
+            </div>
+            <div class="info-line">
+                <div class="title">版权：</div><div class="content">没有。。你想咋改就咋改，想咋玩就咋玩，记得给作者一个start。<br>
+                    如果能在你使用的网站提一嘴作者，那你人还怪好的嘞。</div>
+            </div>
+            <div class="info-line">
+                <div class="title">维护：</div><div class="content">有，不过这么简单的东西维护啥啊，给你个布布高打火机，哪里不会点哪里</div>
+            </div>
+            <div class="info-line">
+                <div class="title">升级：</div><div  class="content">有，作者自己用着哪里不爽他就会更新了。</div>
+            </div>
+            <div class="info-line">
+                <div class="title">博客：</div><div  class="content">有，随心情更，<a href="https://www.casontan.com">https://www.casontan.com</a></div>
+            </div>
+            <div class="info-line">
+                <div class="title">github：</div><div  class="content">有，<a href="https://github.com/casontan/antui-dialog">https://github.com/casontan/antui-dialog</a></div>
+            </div>
+        </div>
+        <h1>html</h1>
+        <div class="button">
+            <div class="antui-btn antui-btn-info" id="html">html</div>
+        </div>
+        <h1>iframe</h1>
+        <div class="button">
+            <div class="antui-btn antui-btn-secondary" id="iframe">iframe</div>
+        </div>
+
+        <h1>message</h1>
+        <div class="button">
+            <div class="antui-btn antui-btn-danger " id="message">message</div>
+            <div class="antui-btn antui-btn-info " id="message-time">message time</div>
+
+        </div>
+        <h1>dialog</h1>
+        <div class="button">
+            <div class="antui-btn antui-btn-primary" id="dialog">dialog</div>
+            <div class="antui-btn antui-btn-danger" id="dialog-callback">dialog callback</div>
+        </div>
+        <h1>loading</h1>
+        <div class="button">
+            <div class="antui-btn antui-btn-success" id="loading">loading</div>
+            <div class="antui-btn antui-btn-warning" id="close-loading">close loading</div>
+            <div class="antui-btn antui-btn-primary" id="loading-shade">loading shade</div>
+        </div>
+        <h1>tip</h1>
+        <div class="button">
+            <div class="antui-btn antui-btn-info" id="tip-top">tip top</div>
+            <div class="antui-btn antui-btn-primary" id="tip-bottom">tip bottom</div>
+            <div class="antui-btn antui-btn-success" id="tip-left">tip left</div>
+            <div class="antui-btn antui-btn-danger" id="tip-right">tip right</div>
+            <div class="antui-btn antui-btn-warning" id="tip-other">tip other element</div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../static/js/antui-dialog.min.js"></script>
+    <script>
+        function getDomById(id) {
+            return document.getElementById(id);
+        }
+        window.onload = function () {
+            //消息弹窗
+            document.getElementById('message').onclick = function () {
+                antui.message('消息弹窗的演示');
+            }
+            document.getElementById('message-time').onclick = function () {
+                antui.message('自动关闭消息弹窗的演示', 3000, function () {
+                    console.log('mssage 自动关闭啦')
+                });
+            }
+
+            document.getElementById('dialog').onclick = function () {
+                antui.dialog('content', {
+                    title: 'title',
+                });
+            }
+            document.getElementById('dialog-callback').onclick = function () {
+                antui.dialog('content', {
+                    title: 'title',
+                }, function () {
+                    antui.message('dialog callback')
+                });
+            }
+
+            document.getElementById('html').onclick = function () {
+                antui.html('<h1>html h1</h1>', { 'title': 'Please copy the below message and send it to your friend' }, function () {
+
+                });
+            }
+
+            document.getElementById('loading').onclick = function () {
+                antui.loading();
+            }
+            document.getElementById('loading-shade').onclick = function () {
+                antui.loading({
+                    time: 3000,
+                    shade: true,
+                });
+            }
+
+            document.getElementById('close-loading').onclick = function () {
+                antui.closeLoading();
+            }
+
+            document.getElementById('tip-top').onclick = function () {
+                antui.tips('top', { 'direction': 'top', 'time': 3000 }, this);
+            }
+            document.getElementById('tip-bottom').onclick = function () {
+                antui.tips('bottom', { 'direction': 'bottom', 'time': 3000 }, this);
+            }
+            document.getElementById('tip-left').onclick = function () {
+                antui.tips('left', { 'direction': 'left', 'time': 3000 }, this);
+            }
+            document.getElementById('tip-right').onclick = function () {
+                antui.tips('right', { 'direction': 'right', 'time': 3000 }, this);
+            }
+            document.getElementById('tip-other').onclick = function () {
+                antui.tips('top', { 'direction': 'top', 'time': 3000 }, '.antui-btn');
+            }
+
+            document.getElementById('iframe').onclick = function () {
+                antui.iframe('/demo/find_pwd_email.html', {
+                    'title': 'iframe',
+                    'width': '500px',
+                    'height': '260px'
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>
