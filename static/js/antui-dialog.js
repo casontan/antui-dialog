@@ -16,6 +16,9 @@
 		auto_close_time : 3000,
 		type: ['dialog', 'html', 'iframe', 'loading', 'tips'],
 		tips_direction : ['left','right','top','bottom'],
+		needs:{
+			font_awesome: 'https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css'
+		},
 	},
 	_get_element = function(selected){//类似JQ的选择器
 		if(!selected) return;
@@ -28,11 +31,11 @@
 				return document.getElementsByTagName(selected)
 		}
 	},
-	_is_include = function(){
+	_is_include = function(name){
 		var links = _get_element('link');
 		if(links.length < 1) return false;
 		for (var i = links.length - 1; i >= 0; i--) {
-			if(links[i].href.indexOf(_options.name)!=-1) return true;
+			if(links[i].href.indexOf(name)!=-1) return true;
 		}
 		return false;
 	},
@@ -56,8 +59,8 @@
 			doms[i].parentElement.removeChild(doms[i]);
 		_remove_shade();
 	},
-	_load_css = function(){
-		var href = _get_link_href();
+	_load_css = function(href){
+		// var href = _get_link_href();
 		var node = document.createElement('link');
 		// node.href ='/static/css/antui-dialog.css';//其他属性设置省略 空白的 TAG 在 safari 上报错
 		node.href = href; 
@@ -72,8 +75,12 @@
 		_get_element('head')[0].appendChild(node);
 	},
 	_init = function(){
-		if(!_is_include()){
-			_load_css();
+		if(!_is_include(_options.name)){
+			_load_css(_get_link_href());
+		}
+		if(!_is_include('font-awesome')){
+			console.log('_load_css');
+			_load_css(_options.needs.font_awesome);
 		}
 	},
 	_set_area_info = function(dom,area_info){
